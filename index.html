@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PECS Communication Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .upload-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            border: 2px dashed #4facfe;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .upload-section:hover {
+            border-color: #667eea;
+            background: #f0f2ff;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .sentence-builder {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 3px solid #4facfe;
+        }
+
+        .sentence-builder h2 {
+            color: #4facfe;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .sentence-area {
+            min-height: 120px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            background: #fafafa;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            transition: all 0.3s ease;
+        }
+
+        .sentence-area.drag-over {
+            border-color: #4facfe;
+            background: #f0f8ff;
+        }
+
+        .sentence-area.empty::before {
+            content: "Drag images here to build your sentence";
+            color: #888;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .image-library {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .image-library h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .pecs-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            cursor: grab;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 3px solid #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pecs-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .pecs-image:active {
+            cursor: grabbing;
+        }
+
+        .pecs-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .pecs-image .label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px;
+            text-align: center;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .sentence-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            border: 2px solid #4facfe;
+            position: relative;
+        }
+
+        .sentence-image:hover {
+            transform: scale(1.1);
+        }
+
+        .sentence-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .sentence-image .remove-btn {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .clear-btn {
+            background: #ff4757;
+            color: white;
+        }
+
+        .clear-btn:hover {
+            background: #ff3742;
+            transform: translateY(-2px);
+        }
+
+        .speak-btn {
+            background: #2ed573;
+            color: white;
+        }
+
+        .speak-btn:hover {
+            background: #1dd1a1;
+            transform: translateY(-2px);
+        }
+
+        .save-btn {
+            background: #ffa502;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: #ff9500;
+            transform: translateY(-2px);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .create-section {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .create-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .create-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: #4facfe;
+            color: white;
+        }
+
+        .tab-content {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .shape-creator {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .creator-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .control-group label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .control-group select,
+        .control-group input {
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .control-group input[type="color"] {
+            width: 50px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+        }
+
+        .creator-preview {
+            text-align: center;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+        }
+
+        .creator-preview h3 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        #previewCanvas {
+            border: 2px solid #4facfe;
+            border-radius: 10px;
+            background: white;
+        }
+
+        .print-section {
+            background: #fff4e6;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #ffa502;
+        }
+
+        .print-section h2 {
+            color: #ffa502;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .print-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .print-controls .control-btn {
+            background: #ffa502;
+            color: white;
+        }
+
+        .print-controls .control-btn:hover {
+            background: #ff9500;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            
+            .print-content, .print-content * {
+                visibility: visible;
+            }
+            
+            .print-content {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: white;
+                padding: 20px;
+            }
+            
+            .print-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+                page-break-inside: avoid;
+            }
+            
+            .print-pecs {
+                border: 2px solid #000;
+                padding: 10px;
+                text-align: center;
+                page-break-inside: avoid;
+            }
+            
+            .print-pecs img {
+                width: 100px;
+                height: 100px;
+                display: block;
+                margin: 0 auto 10px;
+            }
+            
+            .print-pecs .label {
+                font-size: 14px;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+        }
+
+        .drag-placeholder {
+            width: 100px;
+            height: 100px;
+            border: 2px dashed #4facfe;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4facfe;
+            font-size: 0.9em;
+            text-align: center;
+            background: rgba(79, 172, 254, 0.1);
+        }
+
+        .sentence-area.speaking {
+            background: linear-gradient(45deg, #e8f5ff, #f0f8ff);
+            border: 3px solid #4facfe;
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
+            animation: pulse 1s infinite;
+        }
+
+        .sentence-area.pecs-added {
+            background: linear-gradient(45deg, #e8f5e8, #f0fff0);
+            transition: all 0.3s ease;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px rgba(79, 172, 254, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(79, 172, 254, 0.6); }
+            100% { box-shadow: 0 0 20px rgba(79, 172, 254, 0.3); }
+        }
+
+        .speak-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .pecs-image.speaking {
+            animation: glow 0.5s ease-in-out;
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+            50% { box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6); }
+            100% { box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        }
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .image-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+            
+            .pecs-image {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .sentence-image {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PECS Communication Builder</h1>
+            <p>Build sentences by arranging pictures to communicate your thoughts</p>
+        </div>
+
+        <div class="main-content">
+            <div class="sentence-builder">
+                <h2>Build Your Sentence</h2>
+                <div class="sentence-area" id="sentenceArea">
+                    <!-- Sentence images will be added here -->
+                </div>
+                <br>
+                <div class="controls">
+                    <button class="control-btn clear-btn" onclick="clearSentence()">Clear</button>
+                    <button class="control-btn speak-btn" onclick="speakSentence()">Speak</button>
+                    <button class="control-btn save-btn" onclick="saveSentence()">Save Sentence</button>
+                </div>
+            </div>
+
+            <div class="image-library">
+                <h2>Picture Library</h2>
+                <p>Touch and drag pictures to build your sentence</p>
+                <div class="image-grid" id="imageGrid">
+                    <!-- Default images will be loaded here -->
+                </div>
+            </div>
+
+            <div class="create-section">
+                <h2>Create Your Own PECS</h2>
+                <div class="create-tabs">
+                    <button class="tab-btn active" onclick="switchTab('shapes')">Shape Creator</button>
+                    <button class="tab-btn" onclick="switchTab('upload')">Upload Images</button>
+                </div>
+                
+                <div class="tab-content" id="shapesTab">
+                    <div class="shape-creator">
+                        <div class="creator-controls">
+                            <div class="control-group">
+                                <label>Shape:</label>
+                                <select id="shapeSelect">
+                                    <option value="circle">Circle</option>
+                                    <option value="square">Square</option>
+                                    <option value="triangle">Triangle</option>
+                                    <option value="star">Star</option>
+                                    <option value="heart">Heart</option>
+                                    <option value="house">House</option>
+                                    <option value="car">Car</option>
+                                    <option value="tree">Tree</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label>Color:</label>
+                                <input type="color" id="colorPicker" value="#4facfe">
+                            </div>
+                            <div class="control-group">
+                                <label>Background:</label>
+                                <input type="color" id="bgColorPicker" value="#ffffff">
+                            </div>
+                            <div class="control-group">
+                                <label>Add Text:</label>
+                                <input type="text" id="textInput" placeholder="Enter text" maxlength="20">
+                            </div>
+                            <div class="control-group">
+                                <label>Text Size:</label>
+                                <input type="range" id="textSize" min="8" max="24" value="14">
+                            </div>
+                        </div>
+                        
+                        <div class="creator-preview">
+                            <h3>Preview</h3>
+                            <canvas id="previewCanvas" width="120" height="120"></canvas>
+                            <br><br>
+                            <button class="control-btn save-btn" onclick="saveCustomPECS()">Add to Library</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="uploadTab" style="display: none;">
+                    <div class="upload-section">
+                        <h3>Upload Pictures</h3>
+                        <p>Upload images to add to your picture library</p>
+                        <br>
+                        <input type="file" id="imageInput" class="file-input" accept="image/*" multiple>
+                        <button class="upload-btn" onclick="document.getElementById('imageInput').click()">
+                            Choose Images
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="print-section">
+                <h2>Print Your PECS</h2>
+                <p>Create printable sheets of your PECS for physical use</p>
+                <div class="print-controls">
+                    <button class="control-btn" onclick="printAllPECS()">Print All PECS</button>
+                    <button class="control-btn" onclick="printSentence()">Print Current Sentence</button>
+                    <button class="control-btn" onclick="createPECSBook()">Create PECS Book</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Application state
+        let imageLibrary = [];
+        let currentSentence = [];
+        let draggedImage = null;
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDefaultImages();
+            setupEventListeners();
+        });
+
+        function loadDefaultImages() {
+            // Create default images with visual representations
+            const defaultImages = [
+                { id: 1, label: 'I', type: 'person' },
+                { id: 2, label: 'want', type: 'want' },
+                { id: 3, label: 'drink', type: 'drink' },
+                { id: 4, label: 'food', type: 'food' },
+                { id: 5, label: 'help', type: 'help' },
+                { id: 6, label: 'go', type: 'go' },
+                { id: 7, label: 'play', type: 'play' },
+                { id: 8, label: 'stop', type: 'stop' },
+                { id: 9, label: 'more', type: 'more' },
+                { id: 10, label: 'finished', type: 'finished' }
+            ];
+
+            defaultImages.forEach(img => {
+                const imageData = {
+                    id: img.id,
+                    label: img.label,
+                    src: createVisualIcon(img.type, img.label)
+                };
+                imageLibrary.push(imageData);
+            });
+
+            renderImageLibrary();
+        }
+
+        function createVisualIcon(type, label) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 120;
+            canvas.height = 120;
+            const ctx = canvas.getContext('2d');
+            
+            // Set background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, 120, 120);
+            
+            // Set drawing properties
+            ctx.strokeStyle = '#333333';
+            ctx.fillStyle = '#4facfe';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            // Draw based on type
+            switch(type) {
+                case 'person':
+                    // Draw stick figure for "I"
+                    ctx.beginPath();
+                    ctx.arc(60, 30, 12, 0, Math.PI * 2); // head
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.moveTo(60, 42);
+                    ctx.lineTo(60, 80); // body
+                    ctx.moveTo(45, 55);
+                    ctx.lineTo(75, 55); // arms
+                    ctx.moveTo(60, 80);
+                    ctx.lineTo(45, 100); // left leg
+                    ctx.moveTo(60, 80);
+                    ctx.lineTo(75, 100); // right leg
+                    ctx.stroke();
+                    break;
+                    
+                case 'want':
+                    // Draw reaching hands
+                    ctx.fillStyle = '#ff6b6b';
+                    ctx.beginPath();
+                    ctx.arc(35, 60, 15, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(85, 60, 15, 0, Math.PI * 2);
+                    ctx.fill();
+                    // Arrow pointing inward
+                    ctx.strokeStyle = '#333';
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(55, 60);
+                    ctx.lineTo(65, 60);
+                    ctx.moveTo(62, 57);
+                    ctx.lineTo(65, 60);
+                    ctx.moveTo(62, 63);
+                    ctx.lineTo(65, 60);
+                    ctx.stroke();
+                    break;
+                    
+                case 'drink':
+                    // Draw cup/glass
+                    ctx.fillStyle = '#45b7d1';
+                    ctx.fillRect(45, 40, 30, 40);
+                    ctx.fillStyle = '#87ceeb';
+                    ctx.fillRect(47, 42, 26, 25);
+                    // Handle
+                    ctx.strokeStyle = '#333';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.arc(82, 55, 8, -Math.PI/2, Math.PI/2);
+                    ctx.stroke();
+                    break;
+                    
+                case 'food':
+                    // Draw apple
+                    ctx.fillStyle = '#ff4757';
+                    ctx.beginPath();
+                    ctx.arc(60, 65, 25, 0, Math.PI * 2);
+                    ctx.fill();
+                    // Stem
+                    ctx.strokeStyle = '#2d4b2d';
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(60, 40);
+                    ctx.lineTo(60, 48);
+                    ctx.stroke();
+                    // Leaf
+                    ctx.fillStyle = '#2ed573';
+                    ctx.beginPath();
+                    ctx.ellipse(68, 43, 6, 10, Math.PI/4, 0, Math.PI * 2);
+                    ctx.fill();
+                    break;
+                    
+                case 'help':
+                    // Draw helping hands
+                    ctx.fillStyle = '#f0932b';
+                    ctx.beginPath();
+                    ctx.arc(45, 50, 18, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#26de81';
+                    ctx.beginPath();
+                    ctx.arc(75, 70, 18, 0, Math.PI * 2);
+                    ctx.fill();
+                    // Plus sign
+                    ctx.strokeStyle = '#fff';
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(35, 50);
+                    ctx.lineTo(55, 50);
+                    ctx.moveTo(45, 40);
+                    ctx.lineTo(45, 60);
+                    ctx.stroke();
+                    break;
+                    
+                case 'go':
+                    // Draw arrow
+                    ctx.fillStyle = '#eb4d4b';
+                    ctx.beginPath();
+                    ctx.moveTo(20, 60);
+                    ctx.lineTo(70, 60);
+                    ctx.lineTo(60, 45);
+                    ctx.lineTo(85, 60);
+                    ctx.lineTo(60, 75);
+                    ctx.lineTo(70, 60);
+                    ctx.fill();
+                    break;
+                    
+                case 'play':
+                    // Draw ball
+                    ctx.fillStyle = '#6c5ce7';
+                    ctx.beginPath();
+                    ctx.arc(60, 60, 20, 0, Math.PI * 2);
+                    ctx.fill();
+                    // Ball lines
+                    ctx.strokeStyle = '#fff';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(45, 45);
+                    ctx.lineTo(75, 75);
+                    ctx.moveTo(75, 45);
+                    ctx.lineTo(45, 75);
+                    ctx.stroke();
+                    break;
+                    
+                case 'stop':
+                    // Draw stop sign
+                    ctx.fillStyle = '#ff4757';
+                    ctx.beginPath();
+                    ctx.moveTo(60, 25);
+                    ctx.lineTo(85, 40);
+                    ctx.lineTo(85, 80);
+                    ctx.lineTo(60, 95);
+                    ctx.lineTo(35, 80);
+                    ctx.lineTo(35, 40);
+                    ctx.closePath();
+                    ctx.fill();
+                    // STOP text
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 12px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('STOP', 60, 65);
+                    break;
+                    
+                case 'more':
+                    // Draw plus sign
+                    ctx.fillStyle = '#26de81';
+                    ctx.beginPath();
+                    ctx.arc(60, 60, 25, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.strokeStyle = '#fff';
+                    ctx.lineWidth = 6;
+                    ctx.beginPath();
+                    ctx.moveTo(40, 60);
+                    ctx.lineTo(80, 60);
+                    ctx.moveTo(60, 40);
+                    ctx.lineTo(60, 80);
+                    ctx.stroke();
+                    break;
+                    
+                case 'finished':
+                    // Draw checkmark
+                    ctx.fillStyle = '#fd79a8';
+                    ctx.beginPath();
+                    ctx.arc(60, 60, 25, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.strokeStyle = '#fff';
+                    ctx.lineWidth = 6;
+                    ctx.beginPath();
+                    ctx.moveTo(40, 60);
+                    ctx.lineTo(55, 75);
+                    ctx.lineTo(80, 45);
+                    ctx.stroke();
+                    break;
+            }
+            
+            return canvas.toDataURL();
+        }
+
+        function setupEventListeners() {
+            // File input handling
+            document.getElementById('imageInput').addEventListener('change', handleImageUpload);
+
+            // Sentence area drag and drop
+            const sentenceArea = document.getElementById('sentenceArea');
+            sentenceArea.addEventListener('dragover', handleDragOver);
+            sentenceArea.addEventListener('drop', handleDrop);
+            sentenceArea.addEventListener('dragleave', handleDragLeave);
+
+            // Touch events for mobile
+            sentenceArea.addEventListener('touchstart', handleTouchStart);
+            sentenceArea.addEventListener('touchmove', handleTouchMove);
+            sentenceArea.addEventListener('touchend', handleTouchEnd);
+        }
+
+        function handleImageUpload(event) {
+            const files = event.target.files;
+            for (let file of files) {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const imageData = {
+                            id: Date.now() + Math.random(),
+                            label: file.name.split('.')[0],
+                            src: e.target.result
+                        };
+                        imageLibrary.push(imageData);
+                        renderImageLibrary();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+
+        function renderImageLibrary() {
+            const grid = document.getElementById('imageGrid');
+            grid.innerHTML = '';
+
+            imageLibrary.forEach(image => {
+                const imageElement = document.createElement('div');
+                imageElement.className = 'pecs-image';
+                imageElement.draggable = true;
+                imageElement.dataset.imageId = image.id;
+                
+                imageElement.innerHTML = `
+                    <img src="${image.src}" alt="${image.label}">
+                    <div class="label">${image.label}</div>
+                `;
+
+                // Desktop drag events
+                imageElement.addEventListener('dragstart', handleDragStart);
+                
+                // Touch events for mobile
+                imageElement.addEventListener('touchstart', handleImageTouchStart);
+                imageElement.addEventListener('touchmove', handleImageTouchMove);
+                imageElement.addEventListener('touchend', handleImageTouchEnd);
+
+                // Click event for immediate feedback
+                imageElement.addEventListener('click', () => {
+                    imageElement.classList.add('speaking');
+                    setTimeout(() => {
+                        imageElement.classList.remove('speaking');
+                    }, 500);
+                });
+
+                grid.appendChild(imageElement);
+            });
+        }
+
+        function handleDragStart(e) {
+            draggedImage = e.currentTarget.dataset.imageId;
+            e.dataTransfer.effectAllowed = 'copy';
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+            document.getElementById('sentenceArea').classList.add('drag-over');
+        }
+
+        function handleDragLeave(e) {
+            document.getElementById('sentenceArea').classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            document.getElementById('sentenceArea').classList.remove('drag-over');
+            
+            if (draggedImage) {
+                addImageToSentence(draggedImage);
+                draggedImage = null;
+            }
+        }
+
+        // Touch event handlers for mobile
+        let touchStartPos = null;
+        let touchImage = null;
+
+        function handleImageTouchStart(e) {
+            touchStartPos = {
+                x: e.touches[0].clientX,
+                y: e.touches[0].clientY
+            };
+            touchImage = e.currentTarget.dataset.imageId;
+        }
+
+        function handleImageTouchMove(e) {
+            if (!touchStartPos) return;
+            e.preventDefault();
+        }
+
+        function handleImageTouchEnd(e) {
+            if (!touchStartPos || !touchImage) return;
+            
+            const touch = e.changedTouches[0];
+            const element = document.elementFromPoint(touch.clientX, touch.clientY);
+            
+            if (element && (element.id === 'sentenceArea' || element.closest('#sentenceArea'))) {
+                addImageToSentence(touchImage);
+            }
+            
+            touchStartPos = null;
+            touchImage = null;
+        }
+
+        function addImageToSentence(imageId) {
+            try {
+                const image = imageLibrary.find(img => img.id == imageId);
+                if (image) {
+                    currentSentence.push(image);
+                    renderSentence();
+                    
+                    // Speak the PECS label when added
+                    if (image.label) {
+                        speakPECSLabel(image.label);
+                    }
+                    
+                    // Add visual feedback
+                    const sentenceArea = document.getElementById('sentenceArea');
+                    if (sentenceArea) {
+                        sentenceArea.style.backgroundColor = '#e8f5e8';
+                        setTimeout(() => {
+                            sentenceArea.style.backgroundColor = '';
+                        }, 300);
+                    }
+                }
+            } catch (error) {
+                console.error('Error adding image to sentence:', error);
+            }
+        }
+
+        function renderSentence() {
+            const sentenceArea = document.getElementById('sentenceArea');
+            sentenceArea.innerHTML = '';
+            
+            if (currentSentence.length === 0) {
+                sentenceArea.classList.add('empty');
+                return;
+            }
+            
+            sentenceArea.classList.remove('empty');
+            
+            currentSentence.forEach((image, index) => {
+                const imageElement = document.createElement('div');
+                imageElement.className = 'sentence-image';
+                imageElement.innerHTML = `
+                    <img src="${image.src}" alt="${image.label}">
+                    <button class="remove-btn" onclick="removeFromSentence(${index})">×</button>
+                `;
+                sentenceArea.appendChild(imageElement);
+            });
+        }
+
+        function removeFromSentence(index) {
+            currentSentence.splice(index, 1);
+            renderSentence();
+        }
+
+        function clearSentence() {
+            currentSentence = [];
+            renderSentence();
+        }
+
+        function speakSentence() {
+            try {
+                if (currentSentence.length === 0) {
+                    alert('Please add some pictures to your sentence first!');
+                    return;
+                }
+                
+                const text = currentSentence.map(img => img.label || '').filter(label => label.trim() !== '').join(' ');
+                
+                if (!text || text.trim() === '') {
+                    alert('No text to speak!');
+                    return;
+                }
+                
+                // Visual feedback - highlight sentence area
+                const sentenceArea = document.getElementById('sentenceArea');
+                if (sentenceArea) {
+                    sentenceArea.style.backgroundColor = '#e8f5ff';
+                    sentenceArea.style.border = '3px solid #4facfe';
+                }
+                
+                // Enhanced speech for complete sentences
+                speakText(text, {
+                    rate: 0.75, // Slower for complete sentences
+                    pitch: 1.0,
+                    volume: 0.95,
+                    addPauses: true, // Add natural pauses between words
+                    onStart: () => {
+                        try {
+                            // Disable speak button during speech
+                            const speakBtn = document.querySelector('.speak-btn');
+                            if (speakBtn) {
+                                speakBtn.disabled = true;
+                                speakBtn.textContent = 'Speaking...';
+                            }
+                        } catch (error) {
+                            console.error('Error in onStart:', error);
+                        }
+                    },
+                    onEnd: () => {
+                        try {
+                            // Reset visual feedback
+                            const sentenceArea = document.getElementById('sentenceArea');
+                            if (sentenceArea) {
+                                sentenceArea.style.backgroundColor = '';
+                                sentenceArea.style.border = '';
+                            }
+                            
+                            // Re-enable speak button
+                            const speakBtn = document.querySelector('.speak-btn');
+                            if (speakBtn) {
+                                speakBtn.disabled = false;
+                                speakBtn.textContent = 'Speak';
+                            }
+                        } catch (error) {
+                            console.error('Error in onEnd:', error);
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error in speakSentence:', error);
+                
+                // Ensure UI is reset even on error
+                try {
+                    const sentenceArea = document.getElementById('sentenceArea');
+                    if (sentenceArea) {
+                        sentenceArea.style.backgroundColor = '';
+                        sentenceArea.style.border = '';
+                    }
+                    
+                    const speakBtn = document.querySelector('.speak-btn');
+                    if (speakBtn) {
+                        speakBtn.disabled = false;
+                        speakBtn.textContent = 'Speak';
+                    }
+                } catch (resetError) {
+                    console.error('Error resetting UI:', resetError);
+                }
+            }
+        }
+
+        function saveSentence() {
+            if (currentSentence.length === 0) {
+                alert('Please add some pictures to your sentence first!');
+                return;
+            }
+            
+            const text = currentSentence.map(img => img.label).join(' ');
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `sentence_${Date.now()}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Handle touch events for sentence area
+        function handleTouchStart(e) {
+            // Handle touch start on sentence area
+        }
+
+        function handleTouchMove(e) {
+            // Handle touch move on sentence area
+        }
+
+        function handleTouchEnd(e) {
+            // Handle touch end on sentence area
+        }
+    </script>
+</body>
+</html>
