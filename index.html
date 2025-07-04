@@ -11,147 +11,240 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --surface: #ffffff;
+            --surface-2: #f8fafc;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
-            color: #333;
+            color: var(--text);
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
+            padding: 24px;
         }
 
         .header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            padding: 20px;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 32px;
             text-align: center;
-            color: white;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 32px;
         }
 
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            font-weight: 400;
         }
 
         .main-content {
-            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
         }
 
-        .upload-section {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f8f9ff;
-            border-radius: 15px;
-            border: 2px dashed #4facfe;
-            text-align: center;
-            transition: all 0.3s ease;
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
         }
 
-        .upload-section:hover {
-            border-color: #667eea;
-            background: #f0f2ff;
+        .card-header {
+            margin-bottom: 20px;
         }
 
-        .upload-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
         }
 
-        .upload-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .sentence-builder {
-            background: #fff;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 3px solid #4facfe;
-        }
-
-        .sentence-builder h2 {
-            color: #4facfe;
-            margin-bottom: 15px;
-            font-size: 1.8em;
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-muted);
         }
 
         .sentence-area {
             min-height: 120px;
-            border: 2px dashed #ddd;
-            border-radius: 10px;
-            padding: 15px;
-            background: #fafafa;
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            background: var(--surface-2);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
-            transition: all 0.3s ease;
-        }
-
-        .sentence-area.drag-over {
-            border-color: #4facfe;
-            background: #f0f8ff;
-        }
-
-        .sentence-area.empty::before {
-            content: "Drag images here to build your sentence";
-            color: #888;
-            font-style: italic;
-            font-size: 1.1em;
-        }
-
-        .image-library {
-            background: #f8f9ff;
-            border-radius: 15px;
-            padding: 20px;
+            transition: all 0.2s ease;
             margin-bottom: 20px;
         }
 
-        .image-library h2 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.8em;
+        .sentence-area.drag-over {
+            border-color: var(--primary);
+            background: #eef2ff;
+        }
+
+        .sentence-area.empty::before {
+            content: "Drag PECS cards here to build your sentence";
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 1rem;
+        }
+
+        .sentence-image {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border);
+            transition: transform 0.2s ease;
+        }
+
+        .sentence-image:hover {
+            transform: scale(1.05);
+        }
+
+        .sentence-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sentence-image .remove-btn {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #059669;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
         }
 
         .image-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            display: block;
+            margin-bottom: 24px;
         }
 
         .pecs-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 15px;
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius);
             cursor: grab;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            border: 3px solid #fff;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border);
+            transition: all 0.2s ease;
+            background: var(--surface);
         }
 
         .pecs-image:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
         .pecs-image:active {
@@ -160,7 +253,7 @@
 
         .pecs-image img {
             width: 100%;
-            height: 100%;
+            height: 80%;
             object-fit: cover;
         }
 
@@ -169,350 +262,394 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0,0,0,0.8);
+            background: var(--text);
             color: white;
-            padding: 5px;
+            padding: 4px;
             text-align: center;
-            font-size: 0.8em;
-            font-weight: bold;
+            font-size: 0.75rem;
+            font-weight: 500;
         }
 
-        .sentence-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            border: 2px solid #4facfe;
-            position: relative;
-        }
-
-        .sentence-image:hover {
-            transform: scale(1.1);
-        }
-
-        .sentence-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .sentence-image .remove-btn {
+        .pecs-remove-btn {
             position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #ff4757;
+            top: 4px;
+            right: 4px;
+            background: var(--danger);
             color: white;
             border: none;
             border-radius: 50%;
             width: 20px;
             height: 20px;
-            cursor: pointer;
             font-size: 12px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
         }
 
-        .controls {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
+        .pecs-image:hover .pecs-remove-btn {
+            opacity: 1;
         }
 
-        .control-btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 20px;
-            font-size: 1.1em;
+        .upload-area {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            text-align: center;
+            background: var(--surface-2);
+            transition: all 0.2s ease;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
         }
 
-        .clear-btn {
-            background: #ff4757;
-            color: white;
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: #eef2ff;
         }
 
-        .clear-btn:hover {
-            background: #ff3742;
-            transform: translateY(-2px);
-        }
-
-        .speak-btn {
-            background: #2ed573;
-            color: white;
-        }
-
-        .speak-btn:hover {
-            background: #1dd1a1;
-            transform: translateY(-2px);
-        }
-
-        .save-btn {
-            background: #ffa502;
-            color: white;
-        }
-
-        .save-btn:hover {
-            background: #ff9500;
-            transform: translateY(-2px);
+        .upload-icon {
+            font-size: 2rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
         }
 
         .file-input {
             display: none;
         }
 
-        .create-section {
-            background: #f8f9ff;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .create-section h2 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-        }
-
-        .create-tabs {
+        .rename-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
         }
 
-        .tab-btn {
-            padding: 10px 20px;
+        .rename-modal {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+        }
+
+        .rename-modal-header {
+            background: var(--surface-2);
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rename-modal-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .rename-modal-close {
+            background: none;
             border: none;
-            border-radius: 8px;
-            background: #ddd;
+            color: var(--text-muted);
+            font-size: 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            padding: 4px;
+            border-radius: 4px;
+            transition: color 0.2s ease;
         }
 
-        .tab-btn.active {
-            background: #4facfe;
-            color: white;
+        .rename-modal-close:hover {
+            color: var(--text);
         }
 
-        .tab-content {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-        }
-
-        .shape-creator {
+        .rename-modal-body {
+            padding: 24px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            grid-template-columns: 150px 1fr;
+            gap: 24px;
             align-items: start;
         }
 
-        .creator-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .control-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .control-group label {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .control-group select,
-        .control-group input {
-            padding: 8px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        .control-group input[type="color"] {
-            width: 50px;
-            height: 40px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .control-group input[type="range"] {
+        .rename-preview-image {
             width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
         }
 
-        .creator-preview {
-            text-align: center;
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid #ddd;
+        .form-group {
+            margin-bottom: 16px;
         }
 
-        .creator-preview h3 {
-            margin-bottom: 15px;
-            color: #667eea;
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 6px;
         }
 
-        #previewCanvas {
-            border: 2px solid #4facfe;
-            border-radius: 10px;
-            background: white;
+        .form-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            background: var(--surface);
+            transition: border-color 0.2s ease;
         }
 
-        .print-section {
-            background: #fff4e6;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 2px solid #ffa502;
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgb(99 102 241 / 0.1);
         }
 
-        .print-section h2 {
-            color: #ffa502;
-            margin-bottom: 15px;
-            font-size: 1.8em;
+        .rename-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 8px;
         }
 
-        .print-controls {
+        .rename-modal-footer {
+            background: var(--surface-2);
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
             display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: flex-end;
         }
 
-        .print-controls .control-btn {
-            background: #ffa502;
+        .sentence-builder-card {
+            position: sticky;
+            top: 24px;
+            z-index: 100;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            margin-bottom: 32px;
+        }
+
+        .sentence-builder-card.floating {
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.1);
+            border-color: var(--primary);
+        }
+
+        .category-section {
+            margin-bottom: 32px;
+            padding: 20px;
+            background: var(--surface-2);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .category-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 0;
+        }
+
+        .category-header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-delete-btn {
+            background: var(--danger);
             color: white;
-        }
-
-        .print-controls .control-btn:hover {
-            background: #ff9500;
-        }
-
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            
-            .print-content, .print-content * {
-                visibility: visible;
-            }
-            
-            .print-content {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                background: white;
-                padding: 20px;
-            }
-            
-            .print-grid {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 20px;
-                page-break-inside: avoid;
-            }
-            
-            .print-pecs {
-                border: 2px solid #000;
-                padding: 10px;
-                text-align: center;
-                page-break-inside: avoid;
-            }
-            
-            .print-pecs img {
-                width: 100px;
-                height: 100px;
-                display: block;
-                margin: 0 auto 10px;
-            }
-            
-            .print-pecs .label {
-                font-size: 14px;
-                font-weight: bold;
-                margin-top: 10px;
-            }
-        }
-
-        .drag-placeholder {
-            width: 100px;
-            height: 100px;
-            border: 2px dashed #4facfe;
-            border-radius: 10px;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 12px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #4facfe;
-            font-size: 0.9em;
-            text-align: center;
-            background: rgba(79, 172, 254, 0.1);
-        }
-
-        .sentence-area.speaking {
-            background: linear-gradient(45deg, #e8f5ff, #f0f8ff);
-            border: 3px solid #4facfe;
-            box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
-            animation: pulse 1s infinite;
-        }
-
-        .sentence-area.pecs-added {
-            background: linear-gradient(45deg, #e8f5e8, #f0fff0);
-            transition: all 0.3s ease;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 20px rgba(79, 172, 254, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(79, 172, 254, 0.6); }
-            100% { box-shadow: 0 0 20px rgba(79, 172, 254, 0.3); }
-        }
-
-        .speak-btn:disabled {
             opacity: 0.7;
-            cursor: not-allowed;
-            transform: none !important;
+            transition: opacity 0.2s ease;
         }
 
-        .pecs-image.speaking {
-            animation: glow 0.5s ease-in-out;
+        .category-delete-btn:hover {
+            opacity: 1;
         }
 
-        @keyframes glow {
-            0% { box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-            50% { box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6); }
-            100% { box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .category-edit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
         }
+
+        .category-edit-btn:hover {
+            opacity: 1;
+        }
+
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .category-count {
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+
+        .category-content {
+            overflow-x: auto;
+            padding: 8px 0;
+        }
+
+        .category-content::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .category-content::-webkit-scrollbar-track {
+            background: var(--surface);
+            border-radius: 4px;
+        }
+
+        .category-content::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .category-content::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        .category-grid {
+            display: flex;
+            gap: 16px;
+            padding: 4px;
+            min-height: 120px;
+        }
+
+        .category-grid .pecs-image {
+            flex-shrink: 0;
+        }
+
+        .pecs-edit-btn {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .pecs-image:hover .pecs-edit-btn {
+            opacity: 1;
+        }
+
+        .notification {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: var(--secondary);
+            color: white;
+            padding: 16px 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            z-index: 1001;
+            font-size: 0.875rem;
+            font-weight: 500;
+            max-width: 300px;
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
             .container {
-                margin: 10px;
-                border-radius: 15px;
+                padding: 16px;
             }
             
-            .main-content {
+            .header {
+                padding: 24px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .card {
                 padding: 20px;
             }
             
-            .image-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            .rename-modal-body {
+                grid-template-columns: 1fr;
+                gap: 16px;
             }
             
-            .pecs-image {
-                width: 100px;
-                height: 100px;
+            .rename-preview-image {
+                width: 120px;
+                height: 120px;
+                margin: 0 auto;
             }
             
-            .sentence-image {
-                width: 80px;
-                height: 80px;
+            .controls {
+                flex-wrap: wrap;
+            }
+            
+            .btn {
+                flex: 1;
+                min-width: 120px;
             }
         }
     </style>
@@ -525,134 +662,75 @@
         </div>
 
         <div class="main-content">
-            <div class="sentence-builder">
-                <h2>Build Your Sentence</h2>
-                <div class="sentence-area" id="sentenceArea">
-                    <!-- Sentence images will be added here -->
+            <!-- Sentence Builder -->
+            <div class="sentence-builder-card" id="sentenceBuilderCard">
+                <div class="card-header">
+                    <h2 class="card-title">Build Your Sentence</h2>
+                    <p class="card-subtitle">Drag PECS cards here to create your message</p>
                 </div>
-                <br>
+                <div class="sentence-area" id="sentenceArea"></div>
                 <div class="controls">
-                    <button class="control-btn clear-btn" onclick="clearSentence()">Clear</button>
-                    <button class="control-btn speak-btn" onclick="speakSentence()">Speak</button>
-                    <button class="control-btn save-btn" onclick="saveSentence()">Save Sentence</button>
+                    <button class="btn btn-danger" onclick="clearSentence()">Clear</button>
+                    <button class="btn btn-primary speak-btn" onclick="speakSentence()">Speak</button>
                 </div>
             </div>
 
-            <div class="image-library">
-                <h2>Picture Library</h2>
-                <p>Touch and drag pictures to build your sentence</p>
-                <div class="image-grid" id="imageGrid">
-                    <!-- Default images will be loaded here -->
-                </div>
-            </div>
-
-            <div class="create-section">
-                <h2>Create Your Own PECS</h2>
-                <div class="create-tabs">
-                    <button class="tab-btn active" onclick="switchTab('shapes')">Shape Creator</button>
-                    <button class="tab-btn" onclick="switchTab('upload')">Upload Images</button>
-                </div>
-                
-                <div class="tab-content" id="shapesTab">
-                    <div class="shape-creator">
-                        <div class="creator-controls">
-                            <div class="control-group">
-                                <label>Shape:</label>
-                                <select id="shapeSelect">
-                                    <option value="circle">Circle</option>
-                                    <option value="square">Square</option>
-                                    <option value="triangle">Triangle</option>
-                                    <option value="star">Star</option>
-                                    <option value="heart">Heart</option>
-                                    <option value="house">House</option>
-                                    <option value="car">Car</option>
-                                    <option value="tree">Tree</option>
-                                </select>
-                            </div>
-                            <div class="control-group">
-                                <label>Color:</label>
-                                <input type="color" id="colorPicker" value="#4facfe">
-                            </div>
-                            <div class="control-group">
-                                <label>Background:</label>
-                                <input type="color" id="bgColorPicker" value="#ffffff">
-                            </div>
-                            <div class="control-group">
-                                <label>Add Text:</label>
-                                <input type="text" id="textInput" placeholder="Enter text" maxlength="20">
-                            </div>
-                            <div class="control-group">
-                                <label>Text Size:</label>
-                                <input type="range" id="textSize" min="8" max="24" value="14">
-                            </div>
-                        </div>
-                        
-                        <div class="creator-preview">
-                            <h3>Preview</h3>
-                            <canvas id="previewCanvas" width="120" height="120"></canvas>
-                            <br><br>
-                            <button class="control-btn save-btn" onclick="saveCustomPECS()">Add to Library</button>
-                        </div>
+            <!-- Picture Library -->
+            <div class="card">
+                <div class="card-header">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <h2 class="card-title" style="margin-bottom: 0;">Picture Library</h2>
+                        <button class="btn btn-secondary" onclick="showCreateCategoryDialog()">+ New Category</button>
                     </div>
+                    <p class="card-subtitle">Touch and drag pictures to build your sentence</p>
                 </div>
+                <div class="image-grid" id="imageGrid"></div>
                 
-                <div class="tab-content" id="uploadTab" style="display: none;">
-                    <div class="upload-section">
-                        <h3>Upload Pictures</h3>
-                        <p>Upload images to add to your picture library</p>
-                        <br>
-                        <input type="file" id="imageInput" class="file-input" accept="image/*" multiple>
-                        <button class="upload-btn" onclick="document.getElementById('imageInput').click()">
-                            Choose Images
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="print-section">
-                <h2>Print Your PECS</h2>
-                <p>Create printable sheets of your PECS for physical use</p>
-                <div class="print-controls">
-                    <button class="control-btn" onclick="printAllPECS()">Print All PECS</button>
-                    <button class="control-btn" onclick="printSentence()">Print Current Sentence</button>
-                    <button class="control-btn" onclick="createPECSBook()">Create PECS Book</button>
+                <!-- Upload Section -->
+                <div class="upload-area" onclick="document.getElementById('imageInput').click()">
+                    <div class="upload-icon">📁</div>
+                    <h3 style="margin-bottom: 8px; font-size: 1rem;">Upload Images</h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem;">Click to select images or drag them here</p>
+                    <input type="file" id="imageInput" class="file-input" accept="image/*" multiple>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Application state
         let imageLibrary = [];
         let currentSentence = [];
         let draggedImage = null;
+        let customCategories = new Set(); // Track custom categories
 
-        // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
             loadDefaultImages();
             setupEventListeners();
         });
 
         function loadDefaultImages() {
-            // Create default images with visual representations
+            imageLibrary = [];
+            
             const defaultImages = [
-                { id: 1, label: 'I', type: 'person' },
-                { id: 2, label: 'want', type: 'want' },
-                { id: 3, label: 'drink', type: 'drink' },
-                { id: 4, label: 'food', type: 'food' },
-                { id: 5, label: 'help', type: 'help' },
-                { id: 6, label: 'go', type: 'go' },
-                { id: 7, label: 'play', type: 'play' },
-                { id: 8, label: 'stop', type: 'stop' },
-                { id: 9, label: 'more', type: 'more' },
-                { id: 10, label: 'finished', type: 'finished' }
+                { id: 1, label: 'I', src: '/images/default/person.jpg', category: 'People' },
+                { id: 2, label: 'want', src: '/images/default/want.jpg', category: 'Actions' },
+                { id: 3, label: 'drink', src: '/images/default/drink.jpg', category: 'Meal Time' },
+                { id: 4, label: 'food', src: '/images/default/food.jpg', category: 'Meal Time' },
+                { id: 5, label: 'help', src: '/images/default/help.jpg', category: 'Actions' },
+                { id: 6, label: 'go', src: '/images/default/go.jpg', category: 'Actions' },
+                { id: 7, label: 'play', src: '/images/default/play.jpg', category: 'Activities' },
+                { id: 8, label: 'stop', src: '/images/default/stop.jpg', category: 'Actions' },
+                { id: 9, label: 'more', src: '/images/default/more.jpg', category: 'Descriptors' },
+                { id: 10, label: 'finished', src: '/images/default/finished.jpg', category: 'Descriptors' }
             ];
 
             defaultImages.forEach(img => {
                 const imageData = {
                     id: img.id,
                     label: img.label,
-                    src: createVisualIcon(img.type, img.label)
+                    src: img.src,
+                    category: img.category,
+                    fallbackSrc: createSimpleIcon(img.label.toLowerCase(), img.label)
                 };
                 imageLibrary.push(imageData);
             });
@@ -660,271 +738,458 @@
             renderImageLibrary();
         }
 
-        function createVisualIcon(type, label) {
-            const canvas = document.createElement('canvas');
-            canvas.width = 120;
-            canvas.height = 120;
-            const ctx = canvas.getContext('2d');
+        function createSimpleIcon(type, label) {
+            const svgStart = `<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <rect width="120" height="120" fill="#f8fafc"/>`;
+            const svgEnd = `</svg>`;
             
-            // Set background
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, 120, 120);
+            let content = '';
             
-            // Set drawing properties
-            ctx.strokeStyle = '#333333';
-            ctx.fillStyle = '#4facfe';
-            ctx.lineWidth = 3;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            
-            // Draw based on type
             switch(type) {
-                case 'person':
-                    // Draw stick figure for "I"
-                    ctx.beginPath();
-                    ctx.arc(60, 30, 12, 0, Math.PI * 2); // head
-                    ctx.fill();
-                    ctx.beginPath();
-                    ctx.moveTo(60, 42);
-                    ctx.lineTo(60, 80); // body
-                    ctx.moveTo(45, 55);
-                    ctx.lineTo(75, 55); // arms
-                    ctx.moveTo(60, 80);
-                    ctx.lineTo(45, 100); // left leg
-                    ctx.moveTo(60, 80);
-                    ctx.lineTo(75, 100); // right leg
-                    ctx.stroke();
+                case 'empty':
+                    content = `<circle cx="60" cy="60" r="25" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+                        <text x="60" y="50" font-family="Arial" font-size="10" fill="#64748b" text-anchor="middle">Empty</text>
+                        <text x="60" y="65" font-family="Arial" font-size="10" fill="#64748b" text-anchor="middle">Category</text>
+                        <text x="60" y="80" font-family="Arial" font-size="8" fill="#94a3b8" text-anchor="middle">Add images here</text>`;
                     break;
-                    
+                case 'i':
+                    content = `<circle cx="60" cy="35" r="15" fill="#6366f1"/>
+                        <rect x="45" y="55" width="30" height="35" rx="5" fill="#6366f1"/>
+                        <rect x="35" y="65" width="15" height="25" rx="3" fill="#6366f1"/>
+                        <rect x="70" y="65" width="15" height="25" rx="3" fill="#6366f1"/>`;
+                    break;
                 case 'want':
-                    // Draw reaching hands
-                    ctx.fillStyle = '#ff6b6b';
-                    ctx.beginPath();
-                    ctx.arc(35, 60, 15, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.beginPath();
-                    ctx.arc(85, 60, 15, 0, Math.PI * 2);
-                    ctx.fill();
-                    // Arrow pointing inward
-                    ctx.strokeStyle = '#333';
-                    ctx.lineWidth = 4;
-                    ctx.beginPath();
-                    ctx.moveTo(55, 60);
-                    ctx.lineTo(65, 60);
-                    ctx.moveTo(62, 57);
-                    ctx.lineTo(65, 60);
-                    ctx.moveTo(62, 63);
-                    ctx.lineTo(65, 60);
-                    ctx.stroke();
+                    content = `<circle cx="35" cy="60" r="12" fill="#ef4444"/>
+                        <circle cx="85" cy="60" r="12" fill="#ef4444"/>
+                        <path d="M55 60 L65 60 M62 57 L65 60 L62 63" stroke="#333" stroke-width="3" fill="none"/>`;
                     break;
-                    
                 case 'drink':
-                    // Draw cup/glass
-                    ctx.fillStyle = '#45b7d1';
-                    ctx.fillRect(45, 40, 30, 40);
-                    ctx.fillStyle = '#87ceeb';
-                    ctx.fillRect(47, 42, 26, 25);
-                    // Handle
-                    ctx.strokeStyle = '#333';
-                    ctx.lineWidth = 3;
-                    ctx.beginPath();
-                    ctx.arc(82, 55, 8, -Math.PI/2, Math.PI/2);
-                    ctx.stroke();
+                    content = `<rect x="40" y="35" width="25" height="40" rx="3" fill="#3b82f6"/>
+                        <rect x="42" y="37" width="21" height="20" fill="#93c5fd"/>
+                        <path d="M65 45 Q75 45 75 55 Q75 65 65 65" stroke="#333" stroke-width="2" fill="none"/>`;
                     break;
-                    
                 case 'food':
-                    // Draw apple
-                    ctx.fillStyle = '#ff4757';
-                    ctx.beginPath();
-                    ctx.arc(60, 65, 25, 0, Math.PI * 2);
-                    ctx.fill();
-                    // Stem
-                    ctx.strokeStyle = '#2d4b2d';
-                    ctx.lineWidth = 4;
-                    ctx.beginPath();
-                    ctx.moveTo(60, 40);
-                    ctx.lineTo(60, 48);
-                    ctx.stroke();
-                    // Leaf
-                    ctx.fillStyle = '#2ed573';
-                    ctx.beginPath();
-                    ctx.ellipse(68, 43, 6, 10, Math.PI/4, 0, Math.PI * 2);
-                    ctx.fill();
+                    content = `<circle cx="60" cy="65" r="20" fill="#ef4444"/>
+                        <rect x="58" y="35" width="4" height="15" fill="#16a34a"/>
+                        <ellipse cx="68" cy="42" rx="4" ry="8" fill="#22c55e" transform="rotate(30 68 42)"/>`;
                     break;
-                    
                 case 'help':
-                    // Draw helping hands
-                    ctx.fillStyle = '#f0932b';
-                    ctx.beginPath();
-                    ctx.arc(45, 50, 18, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.fillStyle = '#26de81';
-                    ctx.beginPath();
-                    ctx.arc(75, 70, 18, 0, Math.PI * 2);
-                    ctx.fill();
-                    // Plus sign
-                    ctx.strokeStyle = '#fff';
-                    ctx.lineWidth = 4;
-                    ctx.beginPath();
-                    ctx.moveTo(35, 50);
-                    ctx.lineTo(55, 50);
-                    ctx.moveTo(45, 40);
-                    ctx.lineTo(45, 60);
-                    ctx.stroke();
+                    content = `<circle cx="45" cy="50" r="15" fill="#f97316"/>
+                        <circle cx="75" cy="70" r="15" fill="#10b981"/>
+                        <path d="M35 50 L55 50 M45 40 L45 60" stroke="white" stroke-width="4"/>`;
                     break;
-                    
                 case 'go':
-                    // Draw arrow
-                    ctx.fillStyle = '#eb4d4b';
-                    ctx.beginPath();
-                    ctx.moveTo(20, 60);
-                    ctx.lineTo(70, 60);
-                    ctx.lineTo(60, 45);
-                    ctx.lineTo(85, 60);
-                    ctx.lineTo(60, 75);
-                    ctx.lineTo(70, 60);
-                    ctx.fill();
+                    content = `<path d="M25 60 L70 60 L60 45 L85 60 L60 75 Z" fill="#dc2626"/>`;
                     break;
-                    
                 case 'play':
-                    // Draw ball
-                    ctx.fillStyle = '#6c5ce7';
-                    ctx.beginPath();
-                    ctx.arc(60, 60, 20, 0, Math.PI * 2);
-                    ctx.fill();
-                    // Ball lines
-                    ctx.strokeStyle = '#fff';
-                    ctx.lineWidth = 2;
-                    ctx.beginPath();
-                    ctx.moveTo(45, 45);
-                    ctx.lineTo(75, 75);
-                    ctx.moveTo(75, 45);
-                    ctx.lineTo(45, 75);
-                    ctx.stroke();
+                    content = `<circle cx="60" cy="60" r="18" fill="#8b5cf6"/>
+                        <path d="M50 50 L70 70 M70 50 L50 70" stroke="white" stroke-width="2"/>
+                        <circle cx="40" cy="40" r="8" fill="#a855f7"/>
+                        <circle cx="80" cy="80" r="8" fill="#ec4899"/>`;
                     break;
-                    
                 case 'stop':
-                    // Draw stop sign
-                    ctx.fillStyle = '#ff4757';
-                    ctx.beginPath();
-                    ctx.moveTo(60, 25);
-                    ctx.lineTo(85, 40);
-                    ctx.lineTo(85, 80);
-                    ctx.lineTo(60, 95);
-                    ctx.lineTo(35, 80);
-                    ctx.lineTo(35, 40);
-                    ctx.closePath();
-                    ctx.fill();
-                    // STOP text
-                    ctx.fillStyle = '#fff';
-                    ctx.font = 'bold 12px Arial';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('STOP', 60, 65);
+                    content = `<polygon points="60,25 85,40 85,80 60,95 35,80 35,40" fill="#dc2626"/>
+                        <text x="60" y="65" font-family="Arial" font-size="12" font-weight="bold" fill="white" text-anchor="middle">STOP</text>`;
                     break;
-                    
                 case 'more':
-                    // Draw plus sign
-                    ctx.fillStyle = '#26de81';
-                    ctx.beginPath();
-                    ctx.arc(60, 60, 25, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.strokeStyle = '#fff';
-                    ctx.lineWidth = 6;
-                    ctx.beginPath();
-                    ctx.moveTo(40, 60);
-                    ctx.lineTo(80, 60);
-                    ctx.moveTo(60, 40);
-                    ctx.lineTo(60, 80);
-                    ctx.stroke();
+                    content = `<circle cx="60" cy="60" r="22" fill="#10b981"/>
+                        <path d="M40 60 L80 60 M60 40 L60 80" stroke="white" stroke-width="5"/>`;
                     break;
-                    
                 case 'finished':
-                    // Draw checkmark
-                    ctx.fillStyle = '#fd79a8';
-                    ctx.beginPath();
-                    ctx.arc(60, 60, 25, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.strokeStyle = '#fff';
-                    ctx.lineWidth = 6;
-                    ctx.beginPath();
-                    ctx.moveTo(40, 60);
-                    ctx.lineTo(55, 75);
-                    ctx.lineTo(80, 45);
-                    ctx.stroke();
+                    content = `<circle cx="60" cy="60" r="22" fill="#ec4899"/>
+                        <path d="M45 60 L55 70 L75 50" stroke="white" stroke-width="5" fill="none"/>`;
                     break;
             }
             
-            return canvas.toDataURL();
+            const svgString = svgStart + content + svgEnd;
+            return 'data:image/svg+xml;base64,' + btoa(svgString);
         }
 
         function setupEventListeners() {
-            // File input handling
             document.getElementById('imageInput').addEventListener('change', handleImageUpload);
-
-            // Sentence area drag and drop
+            
             const sentenceArea = document.getElementById('sentenceArea');
             sentenceArea.addEventListener('dragover', handleDragOver);
             sentenceArea.addEventListener('drop', handleDrop);
             sentenceArea.addEventListener('dragleave', handleDragLeave);
-
-            // Touch events for mobile
             sentenceArea.addEventListener('touchstart', handleTouchStart);
             sentenceArea.addEventListener('touchmove', handleTouchMove);
             sentenceArea.addEventListener('touchend', handleTouchEnd);
         }
 
-        function handleImageUpload(event) {
-            const files = event.target.files;
-            for (let file of files) {
-                if (file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const imageData = {
-                            id: Date.now() + Math.random(),
-                            label: file.name.split('.')[0],
-                            src: e.target.result
-                        };
-                        imageLibrary.push(imageData);
-                        renderImageLibrary();
-                    };
-                    reader.readAsDataURL(file);
+        function renderImageLibrary() {
+            const container = document.getElementById('imageGrid');
+            container.innerHTML = '';
+
+            // Group images by category
+            const categories = {};
+            imageLibrary.forEach(image => {
+                const category = image.category || 'Other';
+                if (!categories[category]) {
+                    categories[category] = [];
                 }
-            }
+                categories[category].push(image);
+            });
+
+            // Define category order for better UX
+            const categoryOrder = ['People', 'Actions', 'Meal Time', 'Activities', 'Descriptors', 'Other'];
+            
+            categoryOrder.forEach(categoryName => {
+                if (categories[categoryName] && categories[categoryName].length > 0) {
+                    createCategorySection(container, categoryName, categories[categoryName]);
+                }
+            });
+
+            // Add any remaining categories not in the predefined order
+            Object.keys(categories).forEach(categoryName => {
+                if (!categoryOrder.includes(categoryName) && categories[categoryName].length > 0) {
+                    createCategorySection(container, categoryName, categories[categoryName]);
+                }
+            });
         }
 
-        function renderImageLibrary() {
-            const grid = document.getElementById('imageGrid');
-            grid.innerHTML = '';
+        function createCategorySection(container, categoryName, images) {
+            const section = document.createElement('div');
+            section.className = 'category-section';
+            section.dataset.category = categoryName;
 
-            imageLibrary.forEach(image => {
+            const header = document.createElement('div');
+            header.className = 'category-header';
+            
+            const isCustomCategory = customCategories.has(categoryName);
+            
+            header.innerHTML = `
+                <div class="category-header-left">
+                    <h3 class="category-title">${categoryName}</h3>
+                    <span class="category-count">${images.length}</span>
+                </div>
+                <div class="category-header-right">
+                    ${isCustomCategory ? `
+                        <button class="category-edit-btn" onclick="editCategoryName('${categoryName}')" title="Edit category name">✎</button>
+                        <button class="category-delete-btn" onclick="deleteCategory('${categoryName}')" title="Delete category">×</button>
+                    ` : ''}
+                </div>
+            `;
+
+            const content = document.createElement('div');
+            content.className = 'category-content';
+            content.id = `category-${categoryName}`;
+
+            const grid = document.createElement('div');
+            grid.className = 'category-grid';
+
+            images.forEach(image => {
                 const imageElement = document.createElement('div');
                 imageElement.className = 'pecs-image';
                 imageElement.draggable = true;
                 imageElement.dataset.imageId = image.id;
                 
+                const isRemovable = image.isCustom || image.id > 10;
+                const imgTag = `<img src="${image.src}" alt="${image.label}" 
+                    onerror="this.src='${image.fallbackSrc || image.src}'; this.onerror=null;">`;
+                
+                // Special styling for dummy images
+                const dummyClass = image.isDummy ? ' style="opacity: 0.6; border: 2px dashed var(--border);"' : '';
+                
                 imageElement.innerHTML = `
-                    <img src="${image.src}" alt="${image.label}">
-                    <div class="label">${image.label}</div>
+                    ${imgTag}
+                    <div class="label"${dummyClass}>${image.label}</div>
+                    ${!image.isDummy ? `<button class="pecs-edit-btn" onclick="editPECSLabel(${image.id})" title="Edit label">✎</button>` : ''}
+                    ${isRemovable ? '<button class="pecs-remove-btn" onclick="removePECSFromLibrary(' + image.id + ')" title="Remove">×</button>' : ''}
                 `;
 
-                // Desktop drag events
-                imageElement.addEventListener('dragstart', handleDragStart);
-                
-                // Touch events for mobile
-                imageElement.addEventListener('touchstart', handleImageTouchStart);
-                imageElement.addEventListener('touchmove', handleImageTouchMove);
-                imageElement.addEventListener('touchend', handleImageTouchEnd);
-
-                // Click event for immediate feedback
-                imageElement.addEventListener('click', () => {
-                    imageElement.classList.add('speaking');
-                    setTimeout(() => {
-                        imageElement.classList.remove('speaking');
-                    }, 500);
-                });
+                // Don't make dummy images draggable
+                if (!image.isDummy) {
+                    imageElement.addEventListener('dragstart', handleDragStart);
+                    imageElement.addEventListener('touchstart', handleImageTouchStart);
+                    imageElement.addEventListener('touchmove', handleImageTouchMove);
+                    imageElement.addEventListener('touchend', handleImageTouchEnd);
+                } else {
+                    imageElement.style.cursor = 'default';
+                    imageElement.draggable = false;
+                }
 
                 grid.appendChild(imageElement);
             });
+
+            content.appendChild(grid);
+            section.appendChild(header);
+            section.appendChild(content);
+            container.appendChild(section);
+        }
+
+        function updateCategoryDropdowns() {
+            // Get all existing categories
+            const allCategories = new Set(['People', 'Actions', 'Meal Time', 'Activities', 'Descriptors', 'Other']);
+            
+            // Add custom categories
+            customCategories.forEach(cat => allCategories.add(cat));
+            
+            // Add categories from existing images
+            imageLibrary.forEach(image => {
+                if (image.category && !image.isDummy) {
+                    allCategories.add(image.category);
+                }
+            });
+            
+            return Array.from(allCategories).sort();
+        }
+
+        function generateCategoryOptions(selectedCategory = '') {
+            const categories = updateCategoryDropdowns();
+            return categories.map(cat => 
+                `<option value="${cat}" ${selectedCategory === cat ? 'selected' : ''}>${cat}</option>`
+            ).join('');
+        }
+
+        function handleImageUpload(event) {
+            const files = event.target.files;
+            
+            Array.from(files).forEach((file, index) => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        showImageRenameDialog(e.target.result, file.name, (newLabel, category) => {
+                            const imageData = {
+                                id: Date.now() + Math.random() + index,
+                                label: newLabel,
+                                src: e.target.result,
+                                category: category,
+                                isCustom: true,
+                                originalFilename: file.name
+                            };
+                            imageLibrary.push(imageData);
+                            renderImageLibrary();
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            event.target.value = '';
+        }
+
+        function editPECSLabel(imageId) {
+            const image = imageLibrary.find(img => img.id == imageId);
+            if (!image) return;
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'rename-modal-overlay';
+            
+            const modal = document.createElement('div');
+            modal.className = 'rename-modal';
+            
+            const categoryOptions = generateCategoryOptions(image.category);
+            
+            modal.innerHTML = `
+                <div class="rename-modal-header">
+                    <h3>Edit PECS Card</h3>
+                    <button class="rename-modal-close" onclick="closeRenameModal()">&times;</button>
+                </div>
+                <div class="rename-modal-body">
+                    <img src="${image.src}" alt="Preview" class="rename-preview-image">
+                    <div>
+                        <div class="form-group">
+                            <label class="form-label">What should this card say?</label>
+                            <input type="text" class="form-input" id="pecsLabel" value="${image.label}" placeholder="Enter word or phrase" maxlength="30">
+                            <div class="rename-hint">This text will be spoken when the card is used</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <input type="text" class="form-input" id="pecsCategory" list="categoryOptions" value="${image.category}" placeholder="Select or type category name">
+                            <datalist id="categoryOptions">
+                                ${categoryOptions}
+                            </datalist>
+                            <div class="rename-hint">Select existing category or type a new one</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rename-modal-footer">
+                    <button class="btn btn-danger" onclick="closeRenameModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="testRenameLabel()">Test Sound</button>
+                    <button class="btn btn-secondary" onclick="confirmEdit(${imageId})">Save Changes</button>
+                </div>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            setTimeout(() => {
+                const input = document.getElementById('pecsLabel');
+                input.focus();
+                input.select();
+            }, 100);
+            
+            document.getElementById('pecsLabel').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    confirmEdit(imageId);
+                }
+            });
+        }
+
+        function showImageRenameDialog(imageSrc, originalFilename, onConfirm) {
+            const overlay = document.createElement('div');
+            overlay.className = 'rename-modal-overlay';
+            
+            const modal = document.createElement('div');
+            modal.className = 'rename-modal';
+            
+            const suggestedName = originalFilename.split('.')[0].replace(/[_-]/g, ' ');
+            
+            // Generate dynamic category options including custom categories
+            const categoryOptions = generateCategoryOptions();
+            
+            modal.innerHTML = `
+                <div class="rename-modal-header">
+                    <h3>Name Your PECS Card</h3>
+                    <button class="rename-modal-close" onclick="closeRenameModal()">&times;</button>
+                </div>
+                <div class="rename-modal-body">
+                    <img src="${imageSrc}" alt="Preview" class="rename-preview-image">
+                    <div>
+                        <div class="form-group">
+                            <label class="form-label">What should this card say?</label>
+                            <input type="text" class="form-input" id="pecsLabel" value="${suggestedName}" placeholder="Enter word or phrase" maxlength="30">
+                            <div class="rename-hint">This text will be spoken when the card is used</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <input type="text" class="form-input" id="pecsCategory" list="categoryOptions" placeholder="Select or type category name">
+                            <datalist id="categoryOptions">
+                                ${categoryOptions}
+                            </datalist>
+                            <div class="rename-hint">Select existing category or type a new one</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rename-modal-footer">
+                    <button class="btn btn-danger" onclick="closeRenameModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="testRenameLabel()">Test Sound</button>
+                    <button class="btn btn-secondary" onclick="confirmRename()">Add to Library</button>
+                </div>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            setTimeout(() => {
+                const input = document.getElementById('pecsLabel');
+                input.focus();
+                input.select();
+                
+                // Set default category based on suggested name
+                const categoryInput = document.getElementById('pecsCategory');
+                if (suggestedName.toLowerCase().includes('eat') || suggestedName.toLowerCase().includes('drink') || suggestedName.toLowerCase().includes('food')) {
+                    categoryInput.value = 'Meal Time';
+                } else if (suggestedName.toLowerCase().includes('play') || suggestedName.toLowerCase().includes('game')) {
+                    categoryInput.value = 'Activities';
+                } else {
+                    categoryInput.value = 'Other';
+                }
+            }, 100);
+            
+            window.currentRenameCallback = onConfirm;
+            
+            document.getElementById('pecsLabel').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    confirmRename();
+                }
+            });
+        }
+
+        function closeRenameModal() {
+            const overlay = document.querySelector('.rename-modal-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+            window.currentRenameCallback = null;
+        }
+
+        function testRenameLabel() {
+            const label = document.getElementById('pecsLabel').value.trim();
+            if (label) {
+                speakPECSLabel(label);
+            } else {
+                alert('Please enter a label first!');
+            }
+        }
+
+        function confirmRename() {
+            const label = document.getElementById('pecsLabel').value.trim();
+            let category = document.getElementById('pecsCategory').value.trim();
+            
+            if (!category) category = 'Other';
+            
+            // Add to custom categories if it's a new category
+            const defaultCategories = ['People', 'Actions', 'Meal Time', 'Activities', 'Descriptors', 'Other'];
+            if (!defaultCategories.includes(category)) {
+                customCategories.add(category);
+            }
+            
+            if (label) {
+                if (window.currentRenameCallback) {
+                    window.currentRenameCallback(label, category);
+                }
+                closeRenameModal();
+                showNotification(`"${label}" added to library!`);
+            } else {
+                alert('Please enter a label for your PECS card!');
+            }
+        }
+
+        function confirmEdit(imageId) {
+            const label = document.getElementById('pecsLabel').value.trim();
+            let category = document.getElementById('pecsCategory').value.trim();
+            
+            if (!category) category = 'Other';
+            
+            // Add to custom categories if it's a new category
+            const defaultCategories = ['People', 'Actions', 'Meal Time', 'Activities', 'Descriptors', 'Other'];
+            if (!defaultCategories.includes(category)) {
+                customCategories.add(category);
+            }
+            
+            if (label) {
+                const image = imageLibrary.find(img => img.id == imageId);
+                if (image) {
+                    image.label = label;
+                    image.category = category;
+                    
+                    // Update any instances in current sentence
+                    currentSentence.forEach(sentenceImage => {
+                        if (sentenceImage.id == imageId) {
+                            sentenceImage.label = label;
+                            sentenceImage.category = category;
+                        }
+                    });
+                    
+                    renderSentence();
+                    renderImageLibrary();
+                    closeRenameModal();
+                    showNotification(`"${label}" updated successfully!`);
+                }
+            } else {
+                alert('Please enter a label for your PECS card!');
+            }
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideInRight 0.3s ease-in reverse';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }
+            }, 3000);
         }
 
         function handleDragStart(e) {
@@ -952,7 +1217,6 @@
             }
         }
 
-        // Touch event handlers for mobile
         let touchStartPos = null;
         let touchImage = null;
 
@@ -983,6 +1247,10 @@
             touchImage = null;
         }
 
+        function handleTouchStart(e) {}
+        function handleTouchMove(e) {}
+        function handleTouchEnd(e) {}
+
         function addImageToSentence(imageId) {
             try {
                 const image = imageLibrary.find(img => img.id == imageId);
@@ -990,15 +1258,13 @@
                     currentSentence.push(image);
                     renderSentence();
                     
-                    // Speak the PECS label when added
                     if (image.label) {
                         speakPECSLabel(image.label);
                     }
                     
-                    // Add visual feedback
                     const sentenceArea = document.getElementById('sentenceArea');
                     if (sentenceArea) {
-                        sentenceArea.style.backgroundColor = '#e8f5e8';
+                        sentenceArea.style.backgroundColor = '#dcfce7';
                         setTimeout(() => {
                             sentenceArea.style.backgroundColor = '';
                         }, 300);
@@ -1055,22 +1321,19 @@
                     return;
                 }
                 
-                // Visual feedback - highlight sentence area
                 const sentenceArea = document.getElementById('sentenceArea');
                 if (sentenceArea) {
-                    sentenceArea.style.backgroundColor = '#e8f5ff';
-                    sentenceArea.style.border = '3px solid #4facfe';
+                    sentenceArea.style.backgroundColor = '#dbeafe';
+                    sentenceArea.style.borderColor = '#3b82f6';
                 }
                 
-                // Enhanced speech for complete sentences
                 speakText(text, {
-                    rate: 0.75, // Slower for complete sentences
+                    rate: 0.75,
                     pitch: 1.0,
                     volume: 0.95,
-                    addPauses: true, // Add natural pauses between words
+                    addPauses: true,
                     onStart: () => {
                         try {
-                            // Disable speak button during speech
                             const speakBtn = document.querySelector('.speak-btn');
                             if (speakBtn) {
                                 speakBtn.disabled = true;
@@ -1082,14 +1345,12 @@
                     },
                     onEnd: () => {
                         try {
-                            // Reset visual feedback
                             const sentenceArea = document.getElementById('sentenceArea');
                             if (sentenceArea) {
                                 sentenceArea.style.backgroundColor = '';
-                                sentenceArea.style.border = '';
+                                sentenceArea.style.borderColor = '';
                             }
                             
-                            // Re-enable speak button
                             const speakBtn = document.querySelector('.speak-btn');
                             if (speakBtn) {
                                 speakBtn.disabled = false;
@@ -1103,12 +1364,11 @@
             } catch (error) {
                 console.error('Error in speakSentence:', error);
                 
-                // Ensure UI is reset even on error
                 try {
                     const sentenceArea = document.getElementById('sentenceArea');
                     if (sentenceArea) {
                         sentenceArea.style.backgroundColor = '';
-                        sentenceArea.style.border = '';
+                        sentenceArea.style.borderColor = '';
                     }
                     
                     const speakBtn = document.querySelector('.speak-btn');
@@ -1122,33 +1382,259 @@
             }
         }
 
-        function saveSentence() {
-            if (currentSentence.length === 0) {
-                alert('Please add some pictures to your sentence first!');
+        function speakText(text, options = {}) {
+            if (!('speechSynthesis' in window)) {
+                alert('Speech synthesis not supported in this browser');
                 return;
             }
             
-            const text = currentSentence.map(img => img.label).join(' ');
-            const blob = new Blob([text], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `sentence_${Date.now()}.txt`;
-            a.click();
-            URL.revokeObjectURL(url);
+            speechSynthesis.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = options.rate || 0.8;
+            utterance.pitch = options.pitch || 1.0;
+            utterance.volume = options.volume || 0.9;
+            
+            if (options.addPauses && text.includes(' ')) {
+                const words = text.split(' ');
+                utterance.text = words.join(', ');
+            }
+            
+            utterance.onstart = () => {
+                if (options.onStart) options.onStart();
+            };
+            
+            utterance.onend = () => {
+                if (options.onEnd) options.onEnd();
+            };
+            
+            speechSynthesis.speak(utterance);
         }
 
-        // Handle touch events for sentence area
-        function handleTouchStart(e) {
-            // Handle touch start on sentence area
+        function speakPECSLabel(label) {
+            speakText(label, {
+                rate: 0.8,
+                pitch: 1.0,
+                volume: 0.8
+            });
         }
 
-        function handleTouchMove(e) {
-            // Handle touch move on sentence area
+        function removePECSFromLibrary(imageId) {
+            const image = imageLibrary.find(img => img.id == imageId);
+            if (!image) return;
+            
+            const confirmMessage = `Remove "${image.label}" from library?`;
+            if (!confirm(confirmMessage)) return;
+            
+            const index = imageLibrary.findIndex(img => img.id == imageId);
+            if (index !== -1) {
+                imageLibrary.splice(index, 1);
+                
+                const sentenceIndex = currentSentence.findIndex(img => img.id == imageId);
+                if (sentenceIndex !== -1) {
+                    currentSentence.splice(sentenceIndex, 1);
+                    renderSentence();
+                }
+                
+                renderImageLibrary();
+                showNotification(`"${image.label}" removed from library`);
+            }
         }
 
-        function handleTouchEnd(e) {
-            // Handle touch end on sentence area
+        function showCreateCategoryDialog() {
+            const overlay = document.createElement('div');
+            overlay.className = 'rename-modal-overlay';
+            
+            const modal = document.createElement('div');
+            modal.className = 'rename-modal';
+            
+            modal.innerHTML = `
+                <div class="rename-modal-header">
+                    <h3>Create New Category</h3>
+                    <button class="rename-modal-close" onclick="closeRenameModal()">&times;</button>
+                </div>
+                <div class="rename-modal-body" style="grid-template-columns: 1fr;">
+                    <div>
+                        <div class="form-group">
+                            <label class="form-label">Category Name</label>
+                            <input type="text" class="form-input" id="newCategoryName" placeholder="Enter category name" maxlength="20">
+                            <div class="rename-hint">Choose a descriptive name for your new category</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rename-modal-footer">
+                    <button class="btn btn-danger" onclick="closeRenameModal()">Cancel</button>
+                    <button class="btn btn-secondary" onclick="confirmCreateCategory()">Create Category</button>
+                </div>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            setTimeout(() => {
+                const input = document.getElementById('newCategoryName');
+                input.focus();
+            }, 100);
+            
+            document.getElementById('newCategoryName').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    confirmCreateCategory();
+                }
+            });
+        }
+
+        function confirmCreateCategory() {
+            const categoryName = document.getElementById('newCategoryName').value.trim();
+            
+            if (!categoryName) {
+                alert('Please enter a category name!');
+                return;
+            }
+            
+            // Check if category already exists
+            const existingCategories = new Set();
+            imageLibrary.forEach(image => {
+                if (image.category) {
+                    existingCategories.add(image.category);
+                }
+            });
+            
+            // Add default categories
+            ['People', 'Actions', 'Meal Time', 'Activities', 'Descriptors', 'Other'].forEach(cat => {
+                existingCategories.add(cat);
+            });
+            
+            // Add custom categories
+            customCategories.forEach(cat => {
+                existingCategories.add(cat);
+            });
+            
+            if (existingCategories.has(categoryName)) {
+                alert('A category with this name already exists!');
+                return;
+            }
+            
+            // Add to custom categories
+            customCategories.add(categoryName);
+            
+            // Create a dummy image to force the category to appear
+            const dummyImage = {
+                id: Date.now() + Math.random(),
+                label: 'Empty Category',
+                src: createSimpleIcon('empty', 'Empty Category'),
+                category: categoryName,
+                isCustom: true,
+                isDummy: true
+            };
+            imageLibrary.push(dummyImage);
+            
+            closeRenameModal();
+            renderImageLibrary();
+            showNotification(`Category "${categoryName}" created! Add images to this category.`);
+        }
+
+        function editCategoryName(oldCategoryName) {
+            const overlay = document.createElement('div');
+            overlay.className = 'rename-modal-overlay';
+            
+            const modal = document.createElement('div');
+            modal.className = 'rename-modal';
+            
+            modal.innerHTML = `
+                <div class="rename-modal-header">
+                    <h3>Edit Category Name</h3>
+                    <button class="rename-modal-close" onclick="closeRenameModal()">&times;</button>
+                </div>
+                <div class="rename-modal-body" style="grid-template-columns: 1fr;">
+                    <div>
+                        <div class="form-group">
+                            <label class="form-label">Category Name</label>
+                            <input type="text" class="form-input" id="editCategoryName" value="${oldCategoryName}" placeholder="Enter category name" maxlength="20">
+                            <div class="rename-hint">Update the name for this category</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rename-modal-footer">
+                    <button class="btn btn-danger" onclick="closeRenameModal()">Cancel</button>
+                    <button class="btn btn-secondary" onclick="confirmEditCategory('${oldCategoryName}')">Save Changes</button>
+                </div>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            setTimeout(() => {
+                const input = document.getElementById('editCategoryName');
+                input.focus();
+                input.select();
+            }, 100);
+            
+            document.getElementById('editCategoryName').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    confirmEditCategory(oldCategoryName);
+                }
+            });
+        }
+
+        function confirmEditCategory(oldCategoryName) {
+            const newCategoryName = document.getElementById('editCategoryName').value.trim();
+            
+            if (!newCategoryName) {
+                alert('Please enter a category name!');
+                return;
+            }
+            
+            if (newCategoryName === oldCategoryName) {
+                closeRenameModal();
+                return;
+            }
+            
+            // Check if new category name already exists
+            const categories = {};
+            imageLibrary.forEach(image => {
+                const category = image.category || 'Other';
+                if (!categories[category]) {
+                    categories[category] = [];
+                }
+            });
+            
+            if (categories[newCategoryName]) {
+                alert('A category with this name already exists!');
+                return;
+            }
+            
+            // Update all images in this category
+            imageLibrary.forEach(image => {
+                if (image.category === oldCategoryName) {
+                    image.category = newCategoryName;
+                }
+            });
+            
+            // Update custom categories set
+            customCategories.delete(oldCategoryName);
+            customCategories.add(newCategoryName);
+            
+            closeRenameModal();
+            renderImageLibrary();
+            showNotification(`Category renamed to "${newCategoryName}"`);
+        }
+
+        function deleteCategory(categoryName) {
+            const confirmMessage = `Delete the "${categoryName}" category?\n\nAll PECS cards in this category will be moved to "Other".`;
+            if (!confirm(confirmMessage)) return;
+            
+            // Move all images from this category to "Other"
+            imageLibrary.forEach(image => {
+                if (image.category === categoryName) {
+                    image.category = 'Other';
+                }
+            });
+            
+            // Remove from custom categories
+            customCategories.delete(categoryName);
+            
+            renderImageLibrary();
+            showNotification(`Category "${categoryName}" deleted`);
         }
     </script>
 </body>
