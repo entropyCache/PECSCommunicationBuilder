@@ -1,4 +1,4 @@
-# PECS Communication Assistant 🗣️
+# PECS Communication Assistant (Project Artemis) 🗣️
 
 A lightweight, accessible web application that empowers individuals to communicate using Picture Exchange Communication System (PECS) symbols. This assistive technology tool enables users to construct sentences by selecting visual symbols and can vocalize the composed message using text-to-speech synthesis.
 
